@@ -1,0 +1,7 @@
+{
+  "name": "Mind Atlas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
