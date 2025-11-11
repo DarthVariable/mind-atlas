@@ -1,0 +1,90 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  min-height: 60vh;
+
+  ion-spinner {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  min-height: 60vh;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    max-width: 300px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hint {
+    font-size: 0.875rem;
+    font-style: italic;
+  }
+}
+
+ion-list {
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+
+    ion-label {
+      h2 {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        color: var(--ion-color-medium);
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .thought-preview {
+        font-style: italic;
+        color: var(--ion-color-medium-shade);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    ion-note {
+      font-size: 0.75rem;
+      align-self: flex-start;
+      margin-top: 0.5rem;
+    }
+  }
+
+  // Sliding item delete button
+  ion-item-sliding {
+    ion-item-options {
+      ion-item-option {
+        font-size: 1.5rem;
+
+        ion-icon {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

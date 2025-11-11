@@ -1,0 +1,144 @@
+/**
+ * Shared styles for all thought journey components
+ * Reduces code duplication and ensures consistency
+ */
+
+/* Content Layout */
+.content-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 16px;
+}
+
+/* Typography */
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin-bottom: 24px;
+}
+
+/* Footer */
+ion-footer ion-toolbar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+ion-footer ion-button[expand="block"] {
+  margin: 0;
+}
+
+ion-footer ion-buttons {
+  margin: 0;
+}
+
+/* Helper Components */
+.helper-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin-bottom: 16px;
+}
+
+.helper-text ion-icon {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+/* Cards */
+.info-card {
+  padding: 16px;
+  background: var(--ion-color-light);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--ion-color-primary);
+}
+
+.tip-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  background: var(--ion-color-warning-tint);
+  border-left: 4px solid var(--ion-color-warning);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.tip-card ion-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tip-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.tip-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--ion-color-step-700);
+}
+
+/* Selection Items */
+.selection-item {
+  --background: var(--ion-color-light);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+/* Validation Messages */
+.validation-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--ion-color-warning-tint);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.validation-message ion-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Selection Hints */
+.selection-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.selection-hint ion-icon {
+  font-size: 20px;
+}

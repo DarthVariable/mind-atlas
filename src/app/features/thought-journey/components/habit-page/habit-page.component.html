@@ -1,0 +1,67 @@
+
+    <app-journey-progress-header />
+
+    <ion-content class="ion-padding">
+      <div class="content">
+        <h1 class="title-page">Make it a Habit</h1>
+        <p class="subtitle-page">Repetition is key to changing thought patterns</p>
+
+        <div class="instruction-section">
+          <h3>To make this new thought stick:</h3>
+          <ol>
+            <li>Write it in a paper and place it in a constant visible place</li>
+            <li>Repeat it out loud 3 times in the morning when you wake up</li>
+            <li>Repeat it 3 times at night before you sleep</li>
+          </ol>
+        </div>
+
+        <div class="frequency-section">
+          <h3>How often will you practice?</h3>
+          <ion-radio-group [value]="frequency()" (ionChange)="onFrequencyChange($event)">
+            <ion-item lines="none">
+              <ion-radio value="DAILY" labelPlacement="end" justify="start" class="wrapped" mode="md">Daily (recommended)</ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-radio value="WEEKLY" labelPlacement="end" justify="start" class="wrapped" mode="md">Weekly</ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+
+        <div class="reminder-section">
+          <ion-item lines="none">
+            <ion-checkbox
+              [checked]="reminderEnabled()"
+              (ionChange)="onReminderChange($event)"
+              labelPlacement="end"
+              mode="md">
+              <ion-label>
+                <h3>Enable reminders</h3>
+                <p>Recieve alerts about your new habit</p>
+              </ion-label>
+            </ion-checkbox>
+          </ion-item>
+        </div>
+
+        <div class="visualization-tip">
+          <ion-icon name="sparkles"></ion-icon>
+          <p><strong>Pro tip:</strong> Visualize the change you want to see. Picture yourself embodying this new thought.</p>
+        </div>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="footer-buttons">
+          <ion-button expand="block" fill="clear" (click)="goBack()">
+            Back
+          </ion-button>
+          <ion-button
+            expand="block"
+            [disabled]="!frequency()"
+            (click)="proceed()">
+            Continue
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  

@@ -1,0 +1,65 @@
+ion-toolbar {
+  padding: 0 !important;
+}
+
+.input-wrapper {
+  position: relative;
+  margin: 10px 0;
+}
+
+.action-input {
+  --background: var(--ion-color-light);
+  --padding-start: 16px;
+  --padding-end: 48px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-radius: 12px;
+  border-radius: 12px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  --padding-start: 8px;
+  --padding-end: 8px;
+  margin: 0;
+  z-index: 10;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.tip-section {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ion-color-light);
+  border-radius: 12px;
+  margin-top: 24px;
+}
+
+.tip-section ion-icon {
+  flex-shrink: 0;
+  font-size: 24px;
+  color: var(--ion-color-dark);
+}
+
+.tip-section ul {
+  padding: 0;
+}
+
+.tip-section li {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.tip-section p {
+  margin-top: 0;
+}
+
+.mb50 {
+  margin-bottom: 30px !important;
+}

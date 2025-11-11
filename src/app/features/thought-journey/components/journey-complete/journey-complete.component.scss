@@ -1,0 +1,210 @@
+
+    .content-wrapper {
+      margin-top: 100px;
+    }
+
+    .success-header {
+      text-align: center;
+      margin: 20px 0 24px;
+    }
+
+    .success-icon {
+      margin-bottom: 12px;
+    }
+
+    .success-icon ion-icon {
+      font-size: 64px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--ion-color-medium);
+      margin: 0;
+    }
+
+    .completion-content {
+      margin-bottom: 20px;
+    }
+
+    .path-content h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .message {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--ion-color-step-600);
+      margin: 0 0 16px;
+    }
+
+    .summary-card {
+      background: var(--ion-color-light);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .summary-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 12px;
+    }
+
+    .summary-card h3 ion-icon {
+      font-size: 20px;
+    }
+
+    .summary-card ion-list {
+      background: transparent;
+      padding: 0;
+    }
+
+    .summary-card ion-item {
+      --background: transparent;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 8px;
+    }
+
+    .summary-card ion-item ion-icon {
+      font-size: 18px;
+      margin-right: 8px;
+      color: var(--ion-color-primary);
+    }
+
+    .transformation-display {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .thought-box {
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .thought-box.original {
+      background: var(--ion-color-danger-tint);
+    }
+
+    .thought-box.transformed {
+      background: var(--ion-color-success-tint);
+    }
+
+    .thought-box label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .thought-box p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .arrow-icon {
+      font-size: 24px;
+      align-self: center;
+    }
+
+    .habit-description {
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+
+    .summary-card ion-note {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .emotions-display {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .emotion-badge {
+      padding: 8px 16px;
+      background: var(--ion-color-primary-tint);
+      border: 1px solid var(--ion-color-primary);
+      border-radius: 20px;
+    }
+
+    .emotion-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .intensity-note {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .situation-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ion-color-step-700);
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .tip-card {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      background: var(--ion-color-warning-tint);
+      border-left: 3px solid var(--ion-color-warning);
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card ion-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tip-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .tip-card p {
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 0;
+      color: var(--ion-color-step-700);
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .action-buttons ion-button {
+      margin: 0;
+    }
+  

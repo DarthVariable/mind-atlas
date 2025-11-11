@@ -1,0 +1,21 @@
+ion-toolbar {
+  padding: 0 !important;
+}
+
+.helper-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin-bottom: 24px;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+ion-radio {
+  padding: 0 8px;
+}

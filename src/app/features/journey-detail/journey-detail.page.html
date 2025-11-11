@@ -1,0 +1,148 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/history"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Journey Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Loading State -->
+  <div *ngIf="loading()" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading journey details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!loading() && error()" class="error-state">
+    <h2>{{ error() }}</h2>
+    <p>The journey you're looking for could not be found.</p>
+  </div>
+
+  <!-- Journey Content -->
+  <div *ngIf="!loading() && !error() && journey()" class="journey-content">
+    <!-- Header Card -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ formatDate(journey()?.completed_at) }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-badge [color]="getPathTypeColor(journey()?.path_type || null)">
+          {{ getPathTypeLabel(journey()?.path_type || null) }}
+        </ion-badge>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Thought Card -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Original Thought</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="thought-text">{{ journey()?.thought_text || 'No thought recorded' }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Situation Card (if applicable) -->
+    <ion-card *ngIf="journey()?.situation_text">
+      <ion-card-header>
+        <ion-card-title>Situation</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ journey()?.situation_text }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Emotions Card -->
+    <ion-card *ngIf="journey()?.emotions && journey()!.emotions.length > 0">
+      <ion-card-header>
+        <ion-card-title>Emotions ({{ journey()!.emotions.length }})</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let emotion of journey()!.emotions">
+            <ion-label>
+              <h3>{{ emotion.emotion_type }}</h3>
+              <p>Intensity: {{ emotion.intensity }}/10</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Items Card (Path A) -->
+    <ion-card *ngIf="journey()?.actionItems?.length">
+      <ion-card-header>
+        <ion-card-title>Action Items</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let action of journey()?.actionItems">
+            <ion-label>
+              <p>{{ action.action_text }}</p>
+            </ion-label>
+            <ion-badge slot="end" [color]="action.is_completed ? 'success' : 'medium'">
+              {{ action.is_completed ? 'Done' : 'Pending' }}
+            </ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Transformation Card (Path B) -->
+    <ion-card *ngIf="journey()?.transformation">
+      <ion-card-header>
+        <ion-card-title>Thought Transformation</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="transformation">
+          <div class="transformation-item">
+            <h4>Original:</h4>
+            <p>{{ journey()!.transformation!.original_thought }}</p>
+          </div>
+          <div class="transformation-arrow">→</div>
+          <div class="transformation-item">
+            <h4>Transformed:</h4>
+            <p>{{ journey()!.transformation!.transformed_thought }}</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Habit Card (Path B) -->
+    <ion-card *ngIf="journey()?.habit">
+      <ion-card-header>
+        <ion-card-title>Habit Building</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Habit:</strong> {{ journey()!.habit!.habit_description }}</p>
+        <p><strong>Frequency:</strong> {{ journey()!.habit!.frequency }}</p>
+        <p *ngIf="journey()!.habit!.reminder_enabled && journey()!.habit!.reminder_time">
+          <strong>Reminder:</strong> {{ journey()!.habit!.reminder_time }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Reevaluation Card (Path B) -->
+    <ion-card *ngIf="journey()?.reevaluation">
+      <ion-card-header>
+        <ion-card-title>Belief Reevaluation</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Belief Rating Change:</strong> {{ journey()!.reevaluation!.original_belief_rating }}/10 → {{ journey()!.reevaluation!.reevaluated_belief_rating }}/10</p>
+        <p *ngIf="journey()!.reevaluation!.insights"><strong>Insights:</strong> {{ journey()!.reevaluation!.insights }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Notes Card -->
+    <ion-card *ngIf="journey()?.notes">
+      <ion-card-header>
+        <ion-card-title>Notes</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ journey()?.notes }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

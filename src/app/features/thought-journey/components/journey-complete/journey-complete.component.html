@@ -1,0 +1,138 @@
+
+    <ion-content class="ion-padding">
+      <div class="content-wrapper">
+        <!-- Success Icon and Header -->
+        <div class="success-header">
+          <div class="success-icon">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon>
+          </div>
+          <h1>Journey Complete!</h1>
+          <p class="subtitle">{{ getSubtitle() }}</p>
+        </div>
+
+        <!-- Path-Specific Content -->
+        <div class="completion-content">
+          @if (pathType() === 'REAL') {
+            <!-- Path A: Real Thought -->
+            <div class="path-content">
+              <h2>Your Action Plan</h2>
+              <p class="message">
+                You've identified a real thought and created an action plan to address it.
+                Remember, taking small steps consistently is key to making lasting change.
+              </p>
+
+              @if (hasActionItems()) {
+                <div class="summary-card">
+                  <ion-list lines="none">
+                    @for (item of actionItems(); track item) {
+                      <ion-item>
+                        <ion-icon name="chevron-forward-outline" slot="start"></ion-icon>
+                        <ion-label class="ion-text-wrap">{{ item }}</ion-label>
+                      </ion-item>
+                    }
+                  </ion-list>
+                </div>
+              }
+
+              <div class="tip-card">
+                <ion-icon name="bulb-outline" color="warning"></ion-icon>
+                <div>
+                  <h4>Next Steps</h4>
+                  <p>Review your action items regularly and track your progress. You can find them in your journal.</p>
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (pathType() === 'NOT_REAL') {
+            <!-- Path B: Not Real Thought -->
+            <div class="path-content">
+              <h2>Your Transformed Thought</h2>
+              <p class="message">
+                You've successfully reframed a distorted thought into a more balanced perspective.
+                Practice this new thought regularly to build healthier thinking patterns.
+              </p>
+
+              @if (hasTransformation()) {
+                <div class="summary-card">
+                  <h3>
+                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                    Thought Transformation
+                  </h3>
+                  <div class="transformation-display">
+                    <div class="thought-box original">
+                      <label>Original Thought</label>
+                      <p>{{ originalThought() }}</p>
+                    </div>
+                    <ion-icon name="arrow-down" class="arrow-icon" color="primary"></ion-icon>
+                    <div class="thought-box transformed">
+                      <label>Transformed Thought</label>
+                      <p>{{ transformedThought() }}</p>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              @if (hasHabit()) {
+                <div class="summary-card">
+                  <h3>
+                    <ion-icon name="repeat-outline"></ion-icon>
+                    Your Habit
+                  </h3>
+                  <p class="habit-description">{{ habitDescription() }}</p>
+                  @if (habitReminder()) {
+                    <ion-note color="medium">
+                      <ion-icon name="notifications-outline"></ion-icon>
+                      Reminder set for {{ habitFrequency() }}
+                    </ion-note>
+                  }
+                </div>
+              }
+
+              <div class="tip-card">
+                <ion-icon name="bulb-outline" color="warning"></ion-icon>
+                <div>
+                  <h4>Practice Makes Progress</h4>
+                  <p>Read your transformed thought daily. Over time, it will become more natural.</p>
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (pathType() === 'EMOTIONAL') {
+            <!-- Path C: Emotional Journey -->
+            <div class="path-content">
+              <h2>Emotions Acknowledged</h2>
+              <p class="message">
+                You've taken the time to recognize and understand your emotions.
+                This awareness is the first step toward emotional well-being.
+              </p>
+
+              <div class="tip-card">
+                <ion-icon name="bulb-outline" color="dark"></ion-icon>
+                <div>
+                  <h4>Moving Forward</h4>
+                  <p>It's okay to feel emotions. Acknowledging them is a sign of emotional intelligence.</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <ion-button expand="block" (click)="goToJournal()">
+            <ion-icon name="book-outline" slot="start"></ion-icon>
+            View in History
+          </ion-button>
+          <ion-button expand="block" fill="outline" (click)="startNewJourney()">
+            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+            Add New Thought
+          </ion-button>
+          <ion-button expand="block" fill="clear" (click)="goHome()">
+            Return to Home
+          </ion-button>
+        </div>
+      </div>
+    </ion-content>
+  

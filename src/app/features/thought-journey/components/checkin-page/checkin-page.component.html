@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <app-journey-cancel-button />
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="content">
+    <h1 class="title-page">Welcome back!</h1>
+    <p class="subtitle-page">Let's take a moment to check in</p>
+
+    <h2 class="step1-title">What brings you here today?</h2>
+    <p class="step1-subtitle">Select all that apply</p>
+
+    <ion-list lines="none">
+      @for (concern of concerns; track concern.id) {        
+        <ion-item>
+          <ion-checkbox [checked]="selectedConcerns().includes(concern.value)" labelPlacement="end" mode="ios"
+            (ionChange)="toggleConcern(concern.value)">
+              {{ concern.label }}
+          </ion-checkbox>
+        </ion-item>
+
+        @if (concern.isOther && selectedConcerns().includes('other')) {
+          <ion-item class="input-container">
+            <ion-input
+              [value]="otherText"
+              (ionInput)="onOtherTextInput($event)"
+              placeholder="Please specify..."
+              [clearInput]="true"
+              class="other-input">
+            </ion-input>
+          </ion-item>
+        }
+      }
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-buttons">
+      <ion-button expand="block" [disabled]="selectedConcerns().length === 0" (click)="startJourney()">
+        Continue
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

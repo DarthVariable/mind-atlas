@@ -1,0 +1,78 @@
+<app-journey-progress-header />
+
+<ion-content class="ion-padding">
+  <div class="content">
+    <h1 class="title-page">Capture Your Thoughts</h1>
+    <p class="subtitle-page">Write what's on your mind right now</p>
+
+    <div class="textarea-wrapper">
+      <ion-textarea
+        [value]="thoughtText()"
+        (ionInput)="onThoughtInput($event)"
+        [disabled]="notSureChecked()"
+        placeholder="Example: I'm scared of failing..."
+        rows="6"
+        class="thought-input"
+        [counter]="true"
+        maxlength="500"
+        [autoGrow]="true">
+      </ion-textarea>
+      @if (hasThoughtText()) {
+        <ion-button fill="clear" class="clear-button" (click)="clearThoughtText()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      }
+    </div>
+
+    <div class="helper-text">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <span>Don't worry about writing it ugly, just write as the thought comes to mind</span>
+    </div>
+
+    @if (!hasThoughtText()) {
+      <div class="divider">
+        <span>OR</span>
+      </div>
+
+      <ion-item lines="none">
+        <ion-checkbox
+          [checked]="notSureChecked()"
+          (ionChange)="onNotSureChange($event)"
+          labelPlacement="end"
+          mode="md">
+            <ion-label>
+              <h3>I'm not sure what I'm thinking</h3>
+              <p>I can't put it into words right now</p>
+            </ion-label>
+        </ion-checkbox>
+      </ion-item>
+    }
+
+    @if (showIsItReal()) {
+      <div class="is-real-section">
+        <h3>Is this thought based on facts?</h3>
+        <ion-radio-group [value]="isItReal()" (ionChange)="onIsItRealChange($event)">
+          <ion-item lines="none">
+            <ion-radio value="REAL" labelPlacement="end" justify="start" class="wrapped" mode="md">Yes, this describes a real situation</ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio value="NOT_REAL" labelPlacement="end" justify="start" class="wrapped" mode="md">No, this is a distorted or unhelpful thought</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+    }
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-buttons">
+      <ion-button expand="block" fill="clear" (click)="goBack()">
+        Back
+      </ion-button>
+      <ion-button expand="block" [disabled]="!canProceed()" (click)="proceed()">
+        Continue
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

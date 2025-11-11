@@ -1,0 +1,57 @@
+.emotions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin: 10px 0 16px 0;
+}
+
+.emotion-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  background: var(--ion-color-light);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--ion-color-dark);
+}
+
+.emotion-chip:hover {
+  background: var(--ion-color-light-shade);
+}
+
+.emotion-chip.selected {
+  background: var(--ion-color-primary-tint);
+  border-color: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+}
+
+.emotion-icon {
+  font-size: 28px;
+}
+
+.emotion-name {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.intensity-section {
+  padding: 16px;
+  background: var(--ion-color-light);
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.intensity-section h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 12px;
+}
+
+.intensity-slider ion-range {
+  padding: 8px 0;
+}

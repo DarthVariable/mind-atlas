@@ -1,0 +1,49 @@
+<app-journey-progress-header />
+
+<ion-content class="ion-padding">
+  <div class="content">
+    <h1 class="title-page">Who's thought is this?</h1>
+    <p class="subtitle-page">
+      Is this thought really yours or you heard it from someone?
+    </p>
+
+    <div class="helper-text">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <span>A lot of our thoughts come from growing up or from others. Identifying the origin helps understand why we think this way.</span>
+    </div>
+
+    <ion-radio-group [value]="selectedOrigin()" (ionChange)="onOriginChange($event)">
+      @for (origin of origins; track origin.value) {
+      <ion-item lines="none" class="origin-item">
+        <ion-radio
+          [value]="origin.value"
+          labelPlacement="end"
+          justify="start"
+          class="wrapped"
+          mode="md">
+          <ion-label>
+            <h2>{{ origin.label }}</h2>
+            <p>{{ origin.description }}</p>
+          </ion-label>
+        </ion-radio>
+      </ion-item>
+      }
+    </ion-radio-group>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-buttons">
+      <ion-button expand="block" fill="clear" (click)="goBack()">
+        Back
+      </ion-button>
+      <ion-button
+        expand="block"
+        [disabled]="!selectedOrigin()"
+        (click)="proceed()">
+        Continue
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

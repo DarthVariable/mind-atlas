@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteAllJourneys()" [disabled]="journeys().length === 0">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Pull to Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading State -->
+  @if (loading()) {
+  <div class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading your journeys...</p>
+  </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && journeys().length === 0) {
+  <div class="empty-state">
+    <h2>No Journeys Yet</h2>
+    <p>Complete your first thought journey to see it here.</p>
+    <p class="hint">Tap the + button on the Dashboard to start.</p>
+  </div>
+  }
+
+  <!-- Journey List -->
+  @if (!loading() && journeys().length > 0) {
+    <ion-list lines="inset">
+      @for (journey of journeys(); track journey.id) {
+        <ion-item-sliding #slidingItem>
+          <ion-item button="true" (click)="viewJourney(journey)" detail="true">
+            <ion-label>
+              <h2>{{ formatDate(journey.completed_at) }}</h2>
+              <p>{{ getPathTypeLabel(journey.path_type) }}</p>
+              <p class="thought-preview">{{ journey.thought_text }}</p>
+            </ion-label>
+            <ion-note slot="end"> {{ journey.emotions.length }} emotions </ion-note>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteJourney(journey, slidingItem)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      }
+    </ion-list>
+  }
+</ion-content>

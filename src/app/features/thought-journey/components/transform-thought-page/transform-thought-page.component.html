@@ -1,0 +1,69 @@
+
+    <app-journey-progress-header />
+
+    <ion-content class="ion-padding">
+      <div class="content">
+        <h1 class="title-page">Transform Your Thought</h1>
+        <p class="subtitle-page">Let's reframe this distorted thought into something more helpful</p>
+
+        <div class="original-thought">
+          <h3>Your Original Thought:</h3>
+          <p>"{{ originalThought() }}"</p>
+        </div>
+
+        <div class="transform-section">
+          <h3>Write the positive version:</h3>
+          <div class="textarea-wrapper">
+            <ion-textarea
+              [value]="transformedThought()"
+              (ionInput)="onThoughtInput($event)"
+              placeholder="Example: I can handle this challenge, and I've overcome difficulties before..."
+              rows="6"
+              class="thought-input"
+              [counter]="true"
+              maxlength="500"
+              [autoGrow]="true">
+            </ion-textarea>
+            @if (hasTransformedText()) {
+              <ion-button fill="clear" class="clear-button" (click)="clearTransformedThought()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            }
+          </div>
+
+          <div class="helper-text">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>Take your time - there's no rush to get this perfect</span>
+          </div>
+        </div>
+
+        <div class="tips-section">
+          <ion-icon name="bulb-outline"></ion-icon>
+          <div>
+            <p><strong>Some rules for this positive thought:</strong></p>
+            <ul>
+              <li>Write it in the present tense. "I'm capable of..."</li>
+              <li>Use positive language (avoid "don't", "can't")</li>
+              <li>Make it realistic and believable</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="footer-buttons">
+          <ion-button expand="block" fill="clear" (click)="goBack()">
+            Back
+          </ion-button>
+          <ion-button
+            expand="block"
+            [disabled]="!canProceed()"
+            (click)="proceed()">
+            Continue
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  

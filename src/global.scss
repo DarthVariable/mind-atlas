@@ -34,4 +34,81 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// @import '@ionic/angular/css/palettes/dark.system.css';
+
+/**
+ * Feature-Specific Global Styles
+ * -----------------------------------------------------
+ */
+@import 'app/features/thought-journey/styles/journey-shared.scss';
+
+
+/**
+ * Safe Area Insets
+ * -----------------------------------------------------
+ * Handles notches, status bars, and home indicators on mobile devices
+ */
+// :root {
+//   --safe-area-inset-top: env(safe-area-inset-top, 0px);
+//   --safe-area-inset-right: env(safe-area-inset-right, 0px);
+//   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+//   --safe-area-inset-left: env(safe-area-inset-left, 0px);
+// }
+
+// Ensure ion-header respects safe area on top
+// ion-header {
+//   padding-top: var(--safe-area-inset-top);
+// }
+
+// Ensure ion-footer respects safe area on bottom
+// ion-footer {
+//   padding-bottom: var(--safe-area-inset-bottom);
+// }
+
+
+/**
+ * Common Styles
+ * -----------------------------------------------------
+ */
+.content {
+  margin: 0 16px;
+}
+
+.title-page {
+  margin: 0 !important;
+}
+
+.subtitle-page {
+  margin-top: 5px !important;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  ion-button {
+    flex: 1;
+    margin: 0;
+  }
+}
+
+.no-ripple {
+  --ripple-color: transparent;
+  --background-activated: transparent;
+  --background-activated-opacity:transparent;
+  --background-focused: transparent;
+  --background-focused-opacity:transparent;
+  --background-hover  : transparent;
+  --background-hover-opacity  :transparent;
+}
+
+.custom-ripple.ion-activatable {
+  --ripple-color: var(--ion-color-primary) !important;
+}
+
+ion-item {
+  --border-radius: 8px;
+}
+
+

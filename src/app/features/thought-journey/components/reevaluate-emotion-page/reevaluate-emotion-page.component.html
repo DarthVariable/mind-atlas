@@ -1,0 +1,62 @@
+
+    <app-journey-progress-header />
+
+    <ion-content class="ion-padding">
+      <div class="content">
+        <h1 class="title-page">Re-evaluate Your Emotion</h1>
+        <p class="subtitle-page">After planning your actions, how do you feel compared to before?</p>
+
+        <div class="feeling-section">
+          <h3>Do you feel better or about the same?</h3>
+          <ion-radio-group [value]="feeling()" (ionChange)="onFeelingChange($event)">
+            <ion-item lines="none">
+              <ion-radio value="better" labelPlacement="end" justify="start" class="wrapped" mode="md">
+                I feel better
+              </ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-radio value="same" labelPlacement="end" justify="start" class="wrapped" mode="md">
+                About the same
+              </ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+
+        @if (feeling()) {
+          <div class="textarea-wrapper">
+            <ion-textarea
+              [value]="insights()"
+              (ionInput)="onInsightsInput($event)"
+              placeholder="Optional: Any insights or thoughts about your plan?"
+              rows="4"
+              class="insights-input"
+              [counter]="true"
+              maxlength="500"
+              [autoGrow]="true">
+            </ion-textarea>
+            @if (hasInsightsText()) {
+              <ion-button fill="clear" class="clear-button" (click)="clearInsights()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-button>
+            }
+          </div>
+        }
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="footer-buttons">
+          <ion-button expand="block" fill="clear" (click)="goBack()">
+            Back
+          </ion-button>
+          <ion-button
+            expand="block"
+            [disabled]="!feeling()"
+            (click)="proceed()">
+            Continue
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  

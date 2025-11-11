@@ -1,0 +1,19 @@
+
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <app-journey-cancel-button />
+        </ion-buttons>
+      </ion-toolbar>
+      @if (progress()) {
+        <ion-toolbar>
+          <div class="progress-container">
+            <div class="progress-info">
+              <span class="step-text">Step {{ progress()!.currentStep }} of {{ progress()!.totalSteps }}</span>
+              <span class="percent-text">{{ progressPercentage() }}%</span>
+            </div>
+            <ion-progress-bar [value]="progressPercentage() / 100" color="primary"></ion-progress-bar>
+          </div>
+        </ion-toolbar>
+      }
+    </ion-header>

@@ -1,0 +1,61 @@
+
+    <app-journey-progress-header />
+
+    <ion-content class="ion-padding">
+      <div class="content">
+        <h1 class="title-page">Plan of Action</h1>
+        <p class="subtitle-page mb50">This thought describes a real situation. Let's create a plan to address it</p>
+
+        @for (action of actions(); track $index) {
+          <div class="input-wrapper">
+            <ion-input
+              [value]="action.text"
+              (ionInput)="onActionInput($event, $index)"
+              placeholder="Describe what action..."
+              class="action-input"
+              clear-input="true"
+              maxlength="500">
+            </ion-input>
+            @if (actions().length > 1) {
+              <ion-button fill="clear" color="danger" class="delete-button" (click)="removeAction($index)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            }
+          </div>
+        }
+
+        <ion-button fill="outline" (click)="addAction()">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Add Another Action
+        </ion-button>
+
+        <div class="tip-section">
+          <ion-icon name="bulb-outline"></ion-icon>
+          <div>
+            <p><strong>Examples of actions:</strong></p>
+            <ul>
+              <li>Talk to my manager about workload</li>
+              <li>Set up a doctor's appointment</li>
+              <li>Create a budget spreadsheet</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="footer-buttons">
+          <ion-button expand="block" fill="clear" (click)="goBack()">
+            Back
+          </ion-button>
+          <ion-button
+            expand="block"
+            [disabled]="!canProceed()"
+            (click)="proceed()">
+            Continue
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  

@@ -1,0 +1,56 @@
+
+    <app-journey-progress-header />
+
+    <ion-content class="ion-padding">
+      <div class="content">
+        <h1 class="title-page">What emotion are you feeling now?</h1>
+
+        <p class="subtitle-page">Select all that apply</p>
+
+        <div class="emotions-grid">
+          @for (emotion of emotionsList; track emotion.name) {
+            <button
+              class="emotion-chip"
+              [class.selected]="isSelected(emotion.name)"
+              (click)="toggleEmotion(emotion.name)">
+              <span class="emotion-icon">{{ emotion.icon }}</span>
+              <span class="emotion-name">{{ emotion.name }}</span>
+            </button>
+          }
+        </div>
+
+        @if (selectedEmotions().length > 0) {
+          <div class="intensity-section">
+            <h3>How strong is this emotion?</h3>
+            <div class="intensity-slider">
+              <ion-range
+                [(ngModel)]="intensity"
+                [min]="1"
+                [max]="5"
+                [pin]="true"
+                color="primary">
+                <ion-label slot="start">Low</ion-label>
+                <ion-label slot="end">High</ion-label>
+              </ion-range>
+            </div>
+          </div>
+        }
+      </div>
+    </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <div class="footer-buttons">
+          <ion-button expand="block" fill="clear" (click)="goBack()">
+            Back
+          </ion-button>
+          <ion-button
+            expand="block"
+            [disabled]="selectedEmotions().length === 0"
+            (click)="proceed()">
+            Continue
+          </ion-button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
+  
