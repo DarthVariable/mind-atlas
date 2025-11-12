@@ -18,6 +18,7 @@ import { addIcons } from 'ionicons';
 import { close, informationCircleOutline, alertCircleOutline } from 'ionicons/icons';
 import { JourneyStateService } from '../../services/journey-state.service';
 import { JourneyProgressHeaderComponent } from '../journey-progress-header/journey-progress-header.component';
+import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
 
 @Component({
   selector: 'app-capture-thoughts-page',
@@ -35,7 +36,8 @@ import { JourneyProgressHeaderComponent } from '../journey-progress-header/journ
     IonLabel,
     IonRadioGroup,
     IonRadio,
-    JourneyProgressHeaderComponent
+    JourneyProgressHeaderComponent,
+    DismissKeyboardOnEnterDirective
   ],
   templateUrl: './capture-thoughts-page.component.html',
   styleUrls: ['./capture-thoughts-page.component.scss']

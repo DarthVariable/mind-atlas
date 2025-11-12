@@ -2,25 +2,54 @@ ion-toolbar {
   padding: 0 !important;
 }
 
-.input-wrapper {
+.actions-container {
+  margin-bottom: 16px;
+}
+
+.actions-list {
+  background: transparent;
+  padding: 0;
+}
+
+.action-item {
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-top: 0;
+  --padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.action-item-content {
+  width: 100%;
+  padding: 16px;
+  background: var(--ion-color-light);
+  border-radius: 12px;
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+.input-group {
   position: relative;
-  margin: 10px 0;
+  margin-bottom: 12px;
 }
 
 .action-input {
-  --background: var(--ion-color-light);
+  --background: white;
   --padding-start: 16px;
   --padding-end: 48px;
   --padding-top: 12px;
   --padding-bottom: 12px;
-  --border-radius: 12px;
-  border-radius: 12px;
+  --border-radius: 8px;
+  border-radius: 8px;
+  font-size: 15px;
 }
 
 .delete-button {
   position: absolute;
   top: 50%;
-  right: 8px;
+  right: 4px;
   transform: translateY(-50%);
   --padding-start: 8px;
   --padding-end: 8px;
@@ -62,4 +91,51 @@ ion-toolbar {
 
 .mb50 {
   margin-bottom: 30px !important;
+}
+
+.date-section {
+  margin-top: 0;
+}
+
+.datetime-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.datetime-label {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.datetime-button-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  ion-datetime-button {
+    --background: white;
+    --color: var(--ion-color-primary);
+    font-size: 14px;
+  }
+
+  .clear-button {
+    --padding-start: 6px;
+    --padding-end: 6px;
+    margin: 0;
+    height: 32px;
+    min-width: 32px;
+
+    ion-icon {
+      font-size: 24px;
+      color: var(--ion-color-danger);
+    }
+  }
+}
+
+.add-action-container {
+  margin: 24px 0;
 }

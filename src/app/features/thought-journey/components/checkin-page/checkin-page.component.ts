@@ -19,6 +19,7 @@ import {
   CheckInConcern,
 } from '../../../../core/services/analytics.service';
 import { JourneyCancelButtonComponent } from '../journey-cancel-button/journey-cancel-button.component';
+import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
 
 const IonicImports = [
   CommonModule,
@@ -36,7 +37,7 @@ const IonicImports = [
 @Component({
   selector: 'app-checkin-page',
   standalone: true,
-  imports: [IonicImports, JourneyCancelButtonComponent],
+  imports: [IonicImports, JourneyCancelButtonComponent, DismissKeyboardOnEnterDirective],
   templateUrl: './checkin-page.component.html',
   styleUrls: ['./checkin-page.component.scss'],
 })

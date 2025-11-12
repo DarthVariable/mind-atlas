@@ -1,5 +1,5 @@
 // Must be imported first to make all event listeners passive by default
-import 'default-passive-events';
+// import 'default-passive-events';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';

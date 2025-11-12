@@ -17,6 +17,10 @@ const config: CapacitorConfig = {
       overlaysWebView: true,
       style: 'LIGHT',
       backgroundColor: '#ffffff'
+    },
+    Keyboard: {
+      resize: 'none',
+      style: 'dark'
     }
   }
 };

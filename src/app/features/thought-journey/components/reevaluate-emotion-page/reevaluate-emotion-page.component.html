@@ -32,7 +32,8 @@
               class="insights-input"
               [counter]="true"
               maxlength="500"
-              [autoGrow]="true">
+              [autoGrow]="true"
+              appDismissKeyboardOnEnter>
             </ion-textarea>
             @if (hasInsightsText()) {
               <ion-button fill="clear" class="clear-button" (click)="clearInsights()">

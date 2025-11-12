@@ -23,14 +23,46 @@
 
               @if (hasActionItems()) {
                 <div class="summary-card">
-                  <ion-list lines="none">
+                  <ion-list lines="inset">
                     @for (item of actionItems(); track item) {
                       <ion-item>
                         <ion-icon name="chevron-forward-outline" slot="start"></ion-icon>
-                        <ion-label class="ion-text-wrap">{{ item }}</ion-label>
+                        <ion-label class="ion-text-wrap">
+                          <div class="action-text">{{ item.text }}</div>
+                          <ion-note class="action-datetime">
+                            @if (item.targetDate) {
+                              <ion-icon name="time-outline"></ion-icon>
+                              {{ formatDate(item.targetDate) }}
+                            } @else {
+                              <span class="no-date">Due date: none</span>
+                            }
+                          </ion-note>
+                        </ion-label>
                       </ion-item>
                     }
                   </ion-list>
+                </div>
+              }
+
+              @if (hasReevaluation()) {
+                <div class="summary-card reevaluation-card">
+                  <h3>
+                    <ion-icon [name]="feelingBetter() ? 'trending-up' : 'remove'" [color]="feelingBetter() ? 'success' : 'medium'"></ion-icon>
+                    How You Feel
+                  </h3>
+                  <p class="feeling-text">
+                    @if (feelingBetter()) {
+                      You're feeling <strong>better</strong> after creating your action plan.
+                    } @else {
+                      You're feeling <strong>about the same</strong>, but having a plan is a great first step.
+                    }
+                  </p>
+                  @if (hasInsights()) {
+                    <div class="insights-section">
+                      <label>Your Insights</label>
+                      <p class="insights-text">{{ reevaluationInsights() }}</p>
+                    </div>
+                  }
                 </div>
               }
 
@@ -90,7 +122,7 @@
               }
 
               <div class="tip-card">
-                <ion-icon name="bulb-outline" color="warning"></ion-icon>
+                <ion-icon name="bulb-outline" color="dark"></ion-icon>
                 <div>
                   <h4>Practice Makes Progress</h4>
                   <p>Read your transformed thought daily. Over time, it will become more natural.</p>

@@ -111,4 +111,27 @@ ion-item {
   --border-radius: 8px;
 }
 
+/**
+ * Datetime Popover Styles
+ * -----------------------------------------------------
+ */
+ion-popover.datetime-popover {
+  --width: auto;
+  --max-width: 90%;
+
+  ion-datetime {
+    --background: var(--ion-background-color, #fff);
+  }
+}
+
+/**
+ * Datetime Button Styles
+ * -----------------------------------------------------
+ */
+ion-datetime-button {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
 

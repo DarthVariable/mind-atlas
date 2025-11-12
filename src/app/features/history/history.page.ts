@@ -122,7 +122,7 @@ export class HistoryPage implements OnInit {
                 message: 'Journey deleted successfully',
                 duration: 2000,
                 position: 'bottom',
-                color: 'success'
+                color: 'dark'
               });
               await toast.present();
 
@@ -178,7 +178,7 @@ export class HistoryPage implements OnInit {
                 message: `All ${count} journey${count > 1 ? 's' : ''} deleted successfully`,
                 duration: 2000,
                 position: 'bottom',
-                color: 'success'
+                color: 'dark'
               });
               await toast.present();
 

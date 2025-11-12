@@ -18,6 +18,7 @@ import { trendingUp, remove, close } from 'ionicons/icons';
 import { JourneyStateService } from '../../services/journey-state.service';
 import { JourneyProgressHeaderComponent } from '../journey-progress-header/journey-progress-header.component';
 import { Reevaluation } from '../../models/journey.model';
+import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
 
 @Component({
   selector: 'app-reevaluate-emotion-page',
@@ -34,7 +35,8 @@ import { Reevaluation } from '../../models/journey.model';
     IonRadio,
     IonIcon,
     IonTextarea,
-    JourneyProgressHeaderComponent
+    JourneyProgressHeaderComponent,
+    DismissKeyboardOnEnterDirective
   ],
   templateUrl: './reevaluate-emotion-page.component.html',
   styleUrls: ['./reevaluate-emotion-page.component.scss']

@@ -30,6 +30,7 @@ export interface ActionItemRecord {
   action_text: string;
   is_completed: boolean;
   created_at: number;
+  target_date?: number;
 }
 
 export interface TransformationRecord {

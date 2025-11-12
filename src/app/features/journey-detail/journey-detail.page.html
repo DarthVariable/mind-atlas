@@ -78,13 +78,20 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let action of journey()?.actionItems">
+          <ion-item *ngFor="let action of journey()?.actionItems" class="action-item">
+            <ion-checkbox
+              slot="start"
+              [checked]="action.is_completed"
+              (ionChange)="toggleActionCompletion(action)">
+            </ion-checkbox>
             <ion-label>
-              <p>{{ action.action_text }}</p>
+              <div class="action-text" [class.completed]="action.is_completed">
+                {{ action.action_text }}
+              </div>
+              <div *ngIf="action.target_date" class="action-date">
+                Due: {{ formatTargetDate(action.target_date) }}
+              </div>
             </ion-label>
-            <ion-badge slot="end" [color]="action.is_completed ? 'success' : 'medium'">
-              {{ action.is_completed ? 'Done' : 'Pending' }}
-            </ion-badge>
           </ion-item>
         </ion-list>
       </ion-card-content>

@@ -27,6 +27,9 @@ import {
   documentTextOutline,
   bookOutline,
   addCircleOutline,
+  timeOutline,
+  trendingUp,
+  remove,
 } from 'ionicons/icons';
 
 @Component({
@@ -50,7 +53,7 @@ export class JourneyCompleteComponent implements OnInit {
   private router = inject(Router);
 
   pathType = signal<PathType | null>(null);
-  actionItems = signal<string[]>([]);
+  actionItems = signal<Array<{text: string, targetDate?: number}>>([]);
   originalThought = signal<string>('');
   transformedThought = signal<string>('');
   habitDescription = signal<string>('');
@@ -59,6 +62,8 @@ export class JourneyCompleteComponent implements OnInit {
   emotions = signal<string[]>([]);
   emotionIntensity = signal<number>(3);
   situationText = signal<string>('');
+  feelingBetter = signal<boolean | null>(null);
+  reevaluationInsights = signal<string>('');
 
   hasActionItems = computed(() => this.actionItems().length > 0);
   hasTransformation = computed(
@@ -68,6 +73,8 @@ export class JourneyCompleteComponent implements OnInit {
   hasHabit = computed(() => this.habitDescription().length > 0);
   hasEmotions = computed(() => this.emotions().length > 0);
   hasSituation = computed(() => this.situationText().length > 0);
+  hasReevaluation = computed(() => this.feelingBetter() !== null);
+  hasInsights = computed(() => this.reevaluationInsights().trim().length > 0);
 
   ngOnInit(): void {
     const journey = this.journeyState.getCurrentJourney();
@@ -83,8 +90,19 @@ export class JourneyCompleteComponent implements OnInit {
     if (journey.path_type === 'REAL') {
       if (journey.actionItems) {
         this.actionItems.set(
-          journey.actionItems.map((item) => item.action_text)
+          journey.actionItems.map((item) => ({
+            text: item.action_text,
+            targetDate: item.target_date
+          }))
         );
+      }
+      // Load reevaluation data for REAL path
+      if (journey.reevaluation) {
+        const feelsBetter = journey.reevaluation.reevaluated_belief_rating > journey.reevaluation.original_belief_rating;
+        this.feelingBetter.set(feelsBetter);
+        if (journey.reevaluation.insights) {
+          this.reevaluationInsights.set(journey.reevaluation.insights);
+        }
       }
     } else if (journey.path_type === 'NOT_REAL') {
       if (journey.transformation) {
@@ -130,6 +148,9 @@ export class JourneyCompleteComponent implements OnInit {
       documentTextOutline,
       bookOutline,
       addCircleOutline,
+      timeOutline,
+      trendingUp,
+      remove,
     });
   }
 
@@ -155,6 +176,27 @@ export class JourneyCompleteComponent implements OnInit {
         return 'custom schedule';
       default:
         return frequency.toLowerCase();
+    }
+  }
+
+  formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateOnly = new Date(date);
+    dateOnly.setHours(0, 0, 0, 0);
+
+    const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+    if (dateOnly.getTime() === today.getTime()) {
+      return `Today at ${timeStr}`;
+    } else if (dateOnly.getTime() === tomorrow.getTime()) {
+      return `Tomorrow at ${timeStr}`;
+    } else {
+      const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return `${dateStr} at ${timeStr}`;
     }
   }
 

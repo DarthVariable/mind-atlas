@@ -21,8 +21,9 @@
               rows="6"
               class="thought-input"
               [counter]="true"
-              maxlength="500"
-              [autoGrow]="true">
+              maxlength="200"
+              [autoGrow]="true"
+              appDismissKeyboardOnEnter>
             </ion-textarea>
             @if (hasTransformedText()) {
               <ion-button fill="clear" class="clear-button" (click)="clearTransformedThought()">
@@ -53,7 +54,7 @@
 
     <ion-footer>
       <ion-toolbar>
-        <div class="footer-buttons">
+        <div>
           <ion-button expand="block" fill="clear" (click)="goBack()">
             Back
           </ion-button>

@@ -37,6 +37,7 @@ export interface ActionItem {
   is_completed: boolean;
   created_at: number;
   completed_at?: number;
+  target_date?: number;
 }
 
 export interface Transformation {

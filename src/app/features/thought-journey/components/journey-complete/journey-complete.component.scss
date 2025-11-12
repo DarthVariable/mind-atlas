@@ -83,6 +83,68 @@
       color: var(--ion-color-primary);
     }
 
+    .action-text {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .action-datetime {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--ion-color-medium);
+      margin-top: 4px;
+
+      ion-icon {
+        font-size: 16px;
+        margin-right: 0;
+      }
+
+      .no-date {
+        font-style: italic;
+        color: var(--ion-color-medium);
+      }
+    }
+
+    .reevaluation-card {
+      .feeling-text {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0 0 12px;
+        color: var(--ion-color-step-700);
+
+        strong {
+          color: var(--ion-color-dark);
+        }
+      }
+
+      .insights-section {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--ion-color-light-shade);
+
+        label {
+          display: block;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          color: var(--ion-color-medium);
+          margin-bottom: 8px;
+        }
+
+        .insights-text {
+          font-size: 14px;
+          line-height: 1.6;
+          color: var(--ion-color-step-700);
+          margin: 0;
+          white-space: pre-wrap;
+          font-style: italic;
+        }
+      }
+    }
+
     .transformation-display {
       display: flex;
       flex-direction: column;
@@ -95,11 +157,11 @@
     }
 
     .thought-box.original {
-      background: var(--ion-color-danger-tint);
+      background: var(--ion-color-medium-tint);
     }
 
     .thought-box.transformed {
-      background: var(--ion-color-success-tint);
+      background: var(--ion-color-medium-tint);
     }
 
     .thought-box label {

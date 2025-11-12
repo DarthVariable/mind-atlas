@@ -8,13 +8,17 @@ import {
   IonButton,
   IonIcon,
   IonTextarea,
-  IonNote
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { close, informationCircleOutline, alertCircleOutline } from 'ionicons/icons';
+import {
+  close,
+  informationCircleOutline,
+  alertCircleOutline,
+} from 'ionicons/icons';
 import { JourneyStateService } from '../../services/journey-state.service';
 import { JourneyProgressHeaderComponent } from '../journey-progress-header/journey-progress-header.component';
 import { Transformation } from '../../models/journey.model';
+import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
 
 @Component({
   selector: 'app-transform-thought-page',
@@ -27,11 +31,11 @@ import { Transformation } from '../../models/journey.model';
     IonButton,
     IonIcon,
     IonTextarea,
-    IonNote,
-    JourneyProgressHeaderComponent
+    JourneyProgressHeaderComponent,
+    DismissKeyboardOnEnterDirective,
   ],
   templateUrl: './transform-thought-page.component.html',
-  styleUrls: ['./transform-thought-page.component.scss']
+  styleUrls: ['./transform-thought-page.component.scss'],
 })
 export class TransformThoughtPageComponent {
   private journeyState = inject(JourneyStateService);
@@ -44,7 +48,9 @@ export class TransformThoughtPageComponent {
     return journey?.thought_text || '';
   });
 
-  hasTransformedText = computed(() => this.transformedThought().trim().length > 0);
+  hasTransformedText = computed(
+    () => this.transformedThought().trim().length > 0
+  );
 
   canProceed = computed(() => {
     return this.transformedThought().trim().length >= 10;
@@ -81,7 +87,7 @@ export class TransformThoughtPageComponent {
       journey_id: journey.id,
       original_thought: journey.thought_text || '',
       transformed_thought: this.transformedThought().trim(),
-      transformation_type: 'REFRAME'
+      transformation_type: 'REFRAME',
     };
 
     this.journeyState.updateJourney({ transformation });

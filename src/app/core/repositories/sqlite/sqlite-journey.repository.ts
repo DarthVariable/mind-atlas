@@ -116,10 +116,10 @@ export class SqliteJourneyRepository implements IJourneyRepository {
       for (const action of journey.actionItems) {
         statements.push({
           statement: `
-            INSERT INTO journey_action_items (journey_id, action_text, is_completed, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO journey_action_items (journey_id, action_text, is_completed, created_at, target_date)
+            VALUES (?, ?, ?, ?, ?)
           `,
-          values: [journey.id, action.action_text, action.is_completed ? 1 : 0, action.created_at]
+          values: [journey.id, action.action_text, action.is_completed ? 1 : 0, action.created_at, action.target_date || null]
         });
       }
     }

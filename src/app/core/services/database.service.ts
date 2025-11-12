@@ -9,7 +9,7 @@ import { DBSQLiteValues } from '../models/database.models';
 export class DatabaseService {
   private sqliteService = inject(SqliteService);
   private dbName = 'mindatlas.db';
-  private dbVersion = 2;
+  private dbVersion = 3;
   private db = signal<SQLiteDBConnection | null>(null);
   private isReady = signal<boolean>(false);
 
@@ -52,6 +52,10 @@ export class DatabaseService {
         {
           toVersion: 2,
           statements: this.getSchemaV2Statements()
+        },
+        {
+          toVersion: 3,
+          statements: this.getSchemaV3Statements()
         }
       ];
 
@@ -191,6 +195,13 @@ export class DatabaseService {
 
       // Create index for performance on timestamp queries
       'CREATE INDEX IF NOT EXISTS idx_checkins_timestamp ON analytics_checkins(timestamp);'
+    ];
+  }
+
+  private getSchemaV3Statements(): string[] {
+    return [
+      // Add target_date column to journey_action_items table
+      'ALTER TABLE journey_action_items ADD COLUMN target_date INTEGER;'
     ];
   }
 

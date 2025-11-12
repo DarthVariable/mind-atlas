@@ -116,7 +116,8 @@ export class IndexedDBJourneyRepository implements IJourneyRepository {
             journey_id: journey.id,
             action_text: action.action_text,
             is_completed: action.is_completed,
-            created_at: action.created_at
+            created_at: action.created_at,
+            target_date: action.target_date
           });
         }
       }
