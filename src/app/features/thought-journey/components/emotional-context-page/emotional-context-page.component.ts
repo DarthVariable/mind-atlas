@@ -14,6 +14,7 @@ import { addIcons } from 'ionicons';
 import { close, informationCircleOutline, alertCircleOutline } from 'ionicons/icons';
 import { JourneyStateService } from '../../services/journey-state.service';
 import { JourneyProgressHeaderComponent } from '../journey-progress-header/journey-progress-header.component';
+import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
 
 @Component({
   selector: 'app-emotional-context-page',
@@ -27,7 +28,8 @@ import { JourneyProgressHeaderComponent } from '../journey-progress-header/journ
     IonIcon,
     IonTextarea,
     IonNote,
-    JourneyProgressHeaderComponent
+    JourneyProgressHeaderComponent,
+    DismissKeyboardOnEnterDirective
   ],
   templateUrl: './emotional-context-page.component.html',
   styleUrls: ['./emotional-context-page.component.scss']
@@ -74,7 +76,16 @@ export class EmotionalContextPageComponent implements OnInit {
 
     await this.journeyState.nextStep();
     this.blurActiveElement();
-    await this.router.navigate(['/journey/complete']);
+
+    // Check path type to determine next route
+    const journey = this.journeyState.getCurrentJourney();
+    if (journey?.path_type === 'REAL' || journey?.path_type === 'NOT_REAL') {
+      // Paths A & B: continue to whos-thought
+      await this.router.navigate(['/journey/whos-thought']);
+    } else {
+      // Path C (EMOTIONAL): go to complete
+      await this.router.navigate(['/journey/complete']);
+    }
   }
 
   private blurActiveElement(): void {

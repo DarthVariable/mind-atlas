@@ -145,7 +145,7 @@ export class CaptureThoughtsPageComponent implements OnInit {
         thought_text: this.thoughtText().trim()
       });
       this.journeyState.nextStep();
-      this.router.navigate(['/journey/whos-thought']);
+      this.router.navigate(['/journey/emotional-capture']);
     } else if (this.isItReal() === 'NOT_REAL') {
       // Path B: Not Real
       this.journeyState.updateJourney({
@@ -153,7 +153,7 @@ export class CaptureThoughtsPageComponent implements OnInit {
         thought_text: this.thoughtText().trim()
       });
       this.journeyState.nextStep();
-      this.router.navigate(['/journey/whos-thought']);
+      this.router.navigate(['/journey/emotional-capture']);
     }
   }
 

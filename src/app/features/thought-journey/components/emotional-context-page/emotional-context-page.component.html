@@ -15,7 +15,8 @@
         class="situation-input"
         [counter]="true"
         maxlength="500"
-        [autoGrow]="true">
+        [autoGrow]="true"
+        appDismissKeyboardOnEnter>
       </ion-textarea>
       @if (hasSituationText()) {
         <ion-button fill="clear" class="clear-button" (click)="clearSituationText()">
