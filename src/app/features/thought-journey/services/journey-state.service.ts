@@ -32,8 +32,8 @@ export class JourneyStateService {
     let totalSteps = 4; // Default before path chosen
 
     if (journey.path_type === 'REAL' || journey.path_type === 'NOT_REAL') {
-      // Path A/B: Check-in → Capture Thoughts → Emotional Capture → Emotional Context → Who's Thought → Plan/Transform → Reevaluate/Habit → Complete
-      totalSteps = 8;
+      // Path A/B: Check-in → Capture Thoughts → Emotional Capture → Who's Thought → Plan/Transform → Reevaluate/Habit → Complete
+      totalSteps = 7;
     } else if (journey.path_type === 'EMOTIONAL') {
       // Path C: Check-in → Capture Thoughts → Emotional Capture → Emotional Context → Complete
       totalSteps = 4;

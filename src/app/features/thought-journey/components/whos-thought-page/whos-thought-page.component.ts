@@ -92,7 +92,8 @@ export class WhosThoughtPageComponent implements OnInit {
 
   goBack(): void {
     this.journeyState.previousStep();
-    this.router.navigate(['/journey/capture-thoughts']);
+    this.blurActiveElement();
+    this.router.navigate(['/journey/emotional-capture']);
   }
 
   proceed(): void {

@@ -91,7 +91,15 @@ export class EmotionalCapturePageComponent implements OnInit {
     this.journeyState.updateJourney({ emotions });
     this.journeyState.nextStep();
     this.blurActiveElement();
-    this.router.navigate(['/journey/emotional-context']);
+
+    // Route based on path type
+    if (journey.path_type === 'EMOTIONAL') {
+      // EMOTIONAL path: continue to emotional-context
+      this.router.navigate(['/journey/emotional-context']);
+    } else {
+      // REAL and NOT_REAL paths: skip emotional-context, go directly to whos-thought
+      this.router.navigate(['/journey/whos-thought']);
+    }
   }
 
   private blurActiveElement(): void {
