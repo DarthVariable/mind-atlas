@@ -38,7 +38,8 @@ export class EmotionalCapturePageComponent implements OnInit {
   selectedEmotions = signal<string[]>([]);
   intensity = 3;
 
-  emotionsList = [
+  // Emotion lists by sentiment
+  private negativeEmotions = [
     { name: 'Anxiety', icon: '😰' },
     { name: 'Sad', icon: '😢' },
     { name: 'Fear', icon: '😨' },
@@ -51,8 +52,49 @@ export class EmotionalCapturePageComponent implements OnInit {
     { name: 'Hopeless', icon: '😞' }
   ];
 
+  private positiveEmotions = [
+    { name: 'Joy', icon: '😊' },
+    { name: 'Gratitude', icon: '🙏' },
+    { name: 'Hope', icon: '🌟' },
+    { name: 'Pride', icon: '😌' },
+    { name: 'Calm', icon: '😌' },
+    { name: 'Excitement', icon: '🤩' },
+    { name: 'Love', icon: '❤️' },
+    { name: 'Content', icon: '😊' },
+    { name: 'Confident', icon: '💪' },
+    { name: 'Inspired', icon: '💡' }
+  ];
+
+  private neutralEmotions = [
+    { name: 'Curious', icon: '🤔' },
+    { name: 'Reflective', icon: '🧐' },
+    { name: 'Calm', icon: '😌' },
+    { name: 'Neutral', icon: '😐' },
+    { name: 'Confused', icon: '😕' },
+    { name: 'Surprised', icon: '😮' },
+    { name: 'Thoughtful', icon: '💭' },
+    { name: 'Interested', icon: '🤨' }
+  ];
+
+  emotionsList: Array<{ name: string; icon: string }> = [];
+
   ngOnInit(): void {
     this.blurActiveElement();
+    this.loadEmotionsForSentiment();
+  }
+
+  private loadEmotionsForSentiment(): void {
+    const journey = this.journeyState.getCurrentJourney();
+    const sentiment = journey?.sentiment || 'neutral';
+
+    // Filter emotions based on journey sentiment
+    if (sentiment === 'positive') {
+      this.emotionsList = this.positiveEmotions;
+    } else if (sentiment === 'negative') {
+      this.emotionsList = this.negativeEmotions;
+    } else {
+      this.emotionsList = this.neutralEmotions;
+    }
   }
 
   isSelected(emotion: string): boolean {

@@ -90,9 +90,35 @@ export class CheckinPageComponent implements OnInit {
       console.error('Failed to track check-in:', error);
     }
 
+    // Determine sentiment based on selected concerns
+    const sentiment = this.determineSentiment(concerns);
+
     // Start journey at step 1 (check-in), then advance to step 2 (capture-thoughts)
     this.journeyState.startJourney();
+    this.journeyState.updateJourney({ sentiment });
     await this.journeyState.nextStep();
     this.router.navigate(['/journey/capture-thoughts']);
+  }
+
+  private determineSentiment(concernValues: string[]): 'positive' | 'negative' | 'neutral' {
+    // Find the sentiment of selected concerns
+    const selectedConcerns = this.concerns.filter(c => concernValues.includes(c.value));
+
+    // Count sentiments
+    const positiveCount = selectedConcerns.filter(c => c.sentiment === 'positive').length;
+    const negativeCount = selectedConcerns.filter(c => c.sentiment === 'negative').length;
+
+    // If any positive concern is selected, consider it positive
+    if (positiveCount > 0) {
+      return 'positive';
+    }
+
+    // If any negative concern is selected, consider it negative
+    if (negativeCount > 0) {
+      return 'negative';
+    }
+
+    // Otherwise neutral
+    return 'neutral';
   }
 }

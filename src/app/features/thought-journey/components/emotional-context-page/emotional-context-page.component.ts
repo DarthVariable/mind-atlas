@@ -39,6 +39,7 @@ export class EmotionalContextPageComponent implements OnInit {
   private router = inject(Router);
 
   situationText = signal('');
+  placeholderText = signal('');
 
   hasSituationText = computed(() => this.situationText().trim().length > 0);
 
@@ -50,6 +51,20 @@ export class EmotionalContextPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.blurActiveElement();
+    this.setPlaceholderBySentiment();
+  }
+
+  private setPlaceholderBySentiment(): void {
+    const journey = this.journeyState.getCurrentJourney();
+    const sentiment = journey?.sentiment || 'neutral';
+
+    if (sentiment === 'positive') {
+      this.placeholderText.set('Example: I had a moment today that made me feel proud and accomplished. I finally completed a project I had been working on...');
+    } else if (sentiment === 'negative') {
+      this.placeholderText.set('Example: I was in a meeting and my boss criticized my work in front of everyone. I felt embarrassed and worried about my performance...');
+    } else {
+      this.placeholderText.set('Example: Something happened today that made me pause and reflect on my thoughts and feelings...');
+    }
   }
 
   onSituationInput(event: any): void {

@@ -11,7 +11,7 @@
         [value]="situationText()"
         (ionInput)="onSituationInput($event)"
         rows="6"
-        placeholder="Example: I was in a meeting and my boss criticized my work in front of everyone. I felt embarrassed and worried about my performance..."
+        [placeholder]="placeholderText()"
         class="situation-input"
         [counter]="true"
         maxlength="500"

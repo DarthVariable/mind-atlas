@@ -107,8 +107,16 @@ export class WhosThoughtPageComponent implements OnInit {
     this.blurActiveElement();
 
     const journey = this.journeyState.getCurrentJourney();
+    const sentiment = journey?.sentiment || 'neutral';
+
     if (journey?.path_type === 'REAL') {
-      this.router.navigate(['/journey/plan-of-action']);
+      // Only go to plan-of-action for negative thoughts
+      // Positive/neutral thoughts skip directly to complete
+      if (sentiment === 'negative') {
+        this.router.navigate(['/journey/plan-of-action']);
+      } else {
+        this.router.navigate(['/journey/complete']);
+      }
     } else if (journey?.path_type === 'NOT_REAL') {
       this.router.navigate(['/journey/transform-thought']);
     }

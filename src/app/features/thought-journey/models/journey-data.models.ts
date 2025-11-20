@@ -6,6 +6,7 @@ export interface JourneyDraft {
   updated_at: number;
   current_step: number;
   path_type: PathType | null;
+  sentiment?: 'positive' | 'negative' | 'neutral';
   thought_text: string | null;
   situation_text: string | null;
   notes: string | null;

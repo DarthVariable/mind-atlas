@@ -29,8 +29,8 @@ export class SqliteJourneyRepository implements IJourneyRepository {
   async saveDraft(journey: JourneyState): Promise<void> {
     const sql = `
       INSERT OR REPLACE INTO journeys
-      (id, created_at, updated_at, is_draft, current_step, path_type, thought_text, situation_text, notes)
-      VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)
+      (id, created_at, updated_at, is_draft, current_step, path_type, sentiment, thought_text, situation_text, notes)
+      VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?, ?)
     `;
 
     await this.db.executeNonQuery(sql, [
@@ -39,6 +39,7 @@ export class SqliteJourneyRepository implements IJourneyRepository {
       Date.now(),
       journey.current_step,
       journey.path_type,
+      journey.sentiment || null,
       journey.thought_text,
       journey.situation_text,
       journey.notes
@@ -82,8 +83,8 @@ export class SqliteJourneyRepository implements IJourneyRepository {
     statements.push({
       statement: `
         INSERT OR REPLACE INTO journeys
-        (id, created_at, updated_at, completed_at, is_draft, current_step, path_type, thought_text, situation_text, notes)
-        VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?)
+        (id, created_at, updated_at, completed_at, is_draft, current_step, path_type, sentiment, thought_text, situation_text, notes)
+        VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?)
       `,
       values: [
         journey.id,
@@ -92,6 +93,7 @@ export class SqliteJourneyRepository implements IJourneyRepository {
         now,
         journey.current_step,
         journey.path_type,
+        journey.sentiment || null,
         journey.thought_text,
         journey.situation_text,
         journey.notes

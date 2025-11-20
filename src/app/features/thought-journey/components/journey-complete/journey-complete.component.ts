@@ -53,6 +53,7 @@ export class JourneyCompleteComponent implements OnInit {
   private router = inject(Router);
 
   pathType = signal<PathType | null>(null);
+  sentiment = signal<'positive' | 'negative' | 'neutral'>('neutral');
   actionItems = signal<Array<{text: string, targetDate?: number}>>([]);
   originalThought = signal<string>('');
   transformedThought = signal<string>('');
@@ -84,6 +85,7 @@ export class JourneyCompleteComponent implements OnInit {
     }
 
     this.pathType.set(journey.path_type);
+    this.sentiment.set(journey.sentiment || 'neutral');
     console.log("🚀 ~ JourneyCompleteComponent ~ ngOnInit ~ this.pathType:", this.pathType)
 
     // Load path-specific data
@@ -156,8 +158,16 @@ export class JourneyCompleteComponent implements OnInit {
 
   getSubtitle(): string {
     const path = this.pathType();
+    const sentiment = this.sentiment();
+
     if (path === 'REAL') {
-      return "You've created a plan to address your real thought";
+      if (sentiment === 'positive') {
+        return "You've captured and reflected on a positive experience";
+      } else if (sentiment === 'neutral') {
+        return "You've taken time to process your thoughts";
+      } else {
+        return "You've created a plan to address your real thought";
+      }
     } else if (path === 'NOT_REAL') {
       return "You've transformed a distorted thought into a healthier one";
     } else if (path === 'EMOTIONAL') {

@@ -37,6 +37,7 @@ export class IndexedDBJourneyRepository implements IJourneyRepository {
       is_draft: 1, // Convert boolean to number for indexing
       current_step: journey.current_step,
       path_type: journey.path_type,
+      sentiment: journey.sentiment,
       thought_text: journey.thought_text,
       situation_text: journey.situation_text,
       notes: journey.notes
@@ -92,6 +93,7 @@ export class IndexedDBJourneyRepository implements IJourneyRepository {
         is_draft: 0, // Convert boolean to number
         current_step: journey.current_step,
         path_type: journey.path_type,
+        sentiment: journey.sentiment,
         thought_text: journey.thought_text,
         situation_text: journey.situation_text,
         notes: journey.notes

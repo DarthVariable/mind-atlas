@@ -27,16 +27,25 @@ export class JourneyStateService {
 
     if (!journey) return null;
 
-    // Determine total steps based on path type
+    // Determine total steps based on path type and sentiment
     // Note: Step 1 (Check-in) and Step 2 (Capture Thoughts) happen before path is chosen
     let totalSteps = 4; // Default before path chosen
 
-    if (journey.path_type === 'REAL' || journey.path_type === 'NOT_REAL') {
-      // Path A/B: Check-in → Capture Thoughts → Emotional Capture → Who's Thought → Plan/Transform → Reevaluate/Habit → Complete
+    if (journey.path_type === 'REAL') {
+      const sentiment = journey.sentiment || 'neutral';
+      if (sentiment === 'negative') {
+        // Negative REAL: Check-in → Capture → Emotion → Who's → Plan → Reevaluate → Complete
+        totalSteps = 7;
+      } else {
+        // Positive/Neutral REAL: Check-in → Capture → Emotion → Who's → Complete
+        totalSteps = 5;
+      }
+    } else if (journey.path_type === 'NOT_REAL') {
+      // NOT_REAL: Check-in → Capture → Emotion → Who's → Transform → Habit → Complete
       totalSteps = 7;
     } else if (journey.path_type === 'EMOTIONAL') {
-      // Path C: Check-in → Capture Thoughts → Emotional Capture → Emotional Context → Complete
-      totalSteps = 4;
+      // EMOTIONAL: Check-in → Capture → Emotion → Context → Complete
+      totalSteps = 5;
     }
 
     return {

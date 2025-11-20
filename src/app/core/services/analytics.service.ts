@@ -4,6 +4,7 @@ export interface CheckInConcern {
   id: number;
   value: string;
   label: string;
+  sentiment: 'positive' | 'negative' | 'neutral';
   isOther?: boolean;
   otherText?: string;
 }
@@ -22,17 +23,18 @@ export interface CheckInData {
 export class AnalyticsService {
 
   readonly CONCERN_OPTIONS: CheckInConcern[] = [
-    { id: 0, value: 'anxiety', label: 'Anxiety or worry' },
-    { id: 1, value: 'low_mood', label: 'Low mood or sadness' },
-    { id: 2, value: 'stress', label: 'Stress management' },
-    { id: 3, value: 'relationships', label: 'Relationship challenges' },
-    { id: 4, value: 'work', label: 'Work or career concerns' },
-    { id: 5, value: 'confidence', label: 'Self-doubt or confidence' },
-    { id: 6, value: 'physical_health', label: 'Physical health' },
-    { id: 7, value: 'financial', label: 'Financial stress' },
-    { id: 8, value: 'personal_growth', label: 'Personal growth' },
-    { id: 9, value: 'life_transitions', label: 'Life transitions' },
-    { id: 10, value: 'other', label: 'Other', isOther: true }
+    // Negative
+    { id: 0, value: 'anxiety_stress', label: 'Anxiety or stress', sentiment: 'negative' },
+    { id: 1, value: 'low_mood', label: 'Low mood or sadness', sentiment: 'negative' },
+    { id: 2, value: 'relationship_work', label: 'Relationship or work challenges', sentiment: 'negative' },
+    // Positive
+    { id: 3, value: 'achievement', label: 'Celebrating an achievement', sentiment: 'positive' },
+    { id: 4, value: 'gratitude', label: 'Gratitude or appreciation', sentiment: 'positive' },
+    { id: 5, value: 'hopeful_motivated', label: 'Feeling hopeful or motivated', sentiment: 'positive' },
+    // Neutral
+    { id: 6, value: 'personal_growth', label: 'Personal growth or reflection', sentiment: 'neutral' },
+    { id: 7, value: 'life_transitions', label: 'Life transitions', sentiment: 'neutral' },
+    { id: 8, value: 'other', label: 'Other', sentiment: 'neutral', isOther: true }
   ];
 
   /**
