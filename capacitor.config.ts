@@ -4,6 +4,10 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'Mind Atlas',
   webDir: 'www',
+  ios: {
+    // @ts-expect-error - packageManager is supported but not in CapacitorConfig types
+    packageManager: 'CocoaPods'
+  },
   plugins: {
     CapacitorSQLite: {
       iosDatabaseLocation: 'Library/MindAtlasDatabase',
