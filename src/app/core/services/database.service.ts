@@ -9,7 +9,7 @@ import { DBSQLiteValues } from '../models/database.models';
 export class DatabaseService {
   private sqliteService = inject(SqliteService);
   private dbName = 'mindatlas.db';
-  private dbVersion = 4;
+  private dbVersion = 6;
   private db = signal<SQLiteDBConnection | null>(null);
   private isReady = signal<boolean>(false);
 
@@ -60,6 +60,14 @@ export class DatabaseService {
         {
           toVersion: 4,
           statements: this.getSchemaV4Statements()
+        },
+        {
+          toVersion: 5,
+          statements: this.getSchemaV5Statements()
+        },
+        {
+          toVersion: 6,
+          statements: this.getSchemaV6Statements()
         }
       ];
 
@@ -213,6 +221,53 @@ export class DatabaseService {
     return [
       // Add sentiment column to journeys table
       `ALTER TABLE journeys ADD COLUMN sentiment TEXT CHECK(sentiment IN ('positive', 'negative', 'neutral'));`
+    ];
+  }
+
+  private getSchemaV5Statements(): string[] {
+    return [
+      // V5: Update reevaluation ratings to use 0-10 scale (already correct in V1 schema)
+      // This migration is a no-op since V1 schema already has correct constraints
+      // Kept for version tracking consistency with architecture document
+    ];
+  }
+
+  private getSchemaV6Statements(): string[] {
+    return [
+      // V6: Drop the sentiment constraint to allow 'mixed' value
+      // SQLite doesn't support ALTER TABLE DROP CONSTRAINT, so we need to:
+      // 1. Create new table with updated constraint
+      // 2. Copy data
+      // 3. Drop old table
+      // 4. Rename new table
+
+      // Create new journeys table with updated sentiment constraint
+      `CREATE TABLE IF NOT EXISTS journeys_new (
+        id TEXT PRIMARY KEY,
+        created_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL,
+        completed_at INTEGER,
+        is_draft INTEGER DEFAULT 1,
+        current_step INTEGER DEFAULT 0,
+        path_type TEXT CHECK(path_type IN ('REAL', 'NOT_REAL', 'EMOTIONAL')),
+        sentiment TEXT CHECK(sentiment IN ('positive', 'negative', 'neutral', 'mixed')),
+        thought_text TEXT,
+        situation_text TEXT,
+        notes TEXT
+      );`,
+
+      // Copy data from old table to new table
+      `INSERT INTO journeys_new SELECT * FROM journeys;`,
+
+      // Drop old table
+      `DROP TABLE journeys;`,
+
+      // Rename new table to journeys
+      `ALTER TABLE journeys_new RENAME TO journeys;`,
+
+      // Recreate indexes
+      'CREATE INDEX IF NOT EXISTS idx_journeys_draft ON journeys(is_draft, updated_at);',
+      'CREATE INDEX IF NOT EXISTS idx_journeys_completed ON journeys(is_draft, completed_at);'
     ];
   }
 

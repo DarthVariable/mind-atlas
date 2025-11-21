@@ -100,25 +100,36 @@ export class CheckinPageComponent implements OnInit {
     this.router.navigate(['/journey/capture-thoughts']);
   }
 
-  private determineSentiment(concernValues: string[]): 'positive' | 'negative' | 'neutral' {
+  private determineSentiment(concernValues: string[]): 'positive' | 'negative' | 'neutral' | 'mixed' {
     // Find the sentiment of selected concerns
     const selectedConcerns = this.concerns.filter(c => concernValues.includes(c.value));
 
     // Count sentiments
     const positiveCount = selectedConcerns.filter(c => c.sentiment === 'positive').length;
     const negativeCount = selectedConcerns.filter(c => c.sentiment === 'negative').length;
+    const neutralCount = selectedConcerns.filter(c => c.sentiment === 'neutral').length;
 
-    // If any positive concern is selected, consider it positive
-    if (positiveCount > 0) {
+    // Calculate weighted scores (each concern has equal weight)
+    const totalConcerns = selectedConcerns.length;
+    const positiveRatio = positiveCount / totalConcerns;
+    const negativeRatio = negativeCount / totalConcerns;
+
+    // Mixed: Both positive and negative present, each > 25% of total
+    if (positiveCount > 0 && negativeCount > 0 && positiveRatio >= 0.25 && negativeRatio >= 0.25) {
+      return 'mixed';
+    }
+
+    // Positive: Positive concerns dominate (> 50% of total)
+    if (positiveRatio > 0.5) {
       return 'positive';
     }
 
-    // If any negative concern is selected, consider it negative
-    if (negativeCount > 0) {
+    // Negative: Negative concerns dominate (> 50% of total)
+    if (negativeRatio > 0.5) {
       return 'negative';
     }
 
-    // Otherwise neutral
+    // Neutral: No clear dominant sentiment or only neutral concerns
     return 'neutral';
   }
 }

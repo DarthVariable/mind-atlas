@@ -270,6 +270,70 @@ export class SqliteJourneyRepository implements IJourneyRepository {
     console.log('[SQLite] All completed journeys deleted');
   }
 
+  // ==================== ACTION ITEM OPERATIONS ====================
+
+  async updateActionItem(
+    journeyId: string,
+    actionItemId: number,
+    updates: Partial<ActionItem>
+  ): Promise<void> {
+    const statements = [];
+
+    // Build the UPDATE query dynamically based on provided updates
+    const updateFields: string[] = [];
+    const values: any[] = [];
+
+    if (updates.action_text !== undefined) {
+      updateFields.push('action_text = ?');
+      values.push(updates.action_text);
+    }
+    if (updates.is_completed !== undefined) {
+      updateFields.push('is_completed = ?');
+      values.push(updates.is_completed ? 1 : 0);
+    }
+    if (updates.completed_at !== undefined) {
+      updateFields.push('completed_at = ?');
+      values.push(updates.completed_at);
+    }
+    if (updates.target_date !== undefined) {
+      updateFields.push('target_date = ?');
+      values.push(updates.target_date);
+    }
+
+    if (updateFields.length === 0) {
+      console.warn('[SQLite] No fields to update for action item');
+      return;
+    }
+
+    // Add WHERE clause values
+    values.push(actionItemId, journeyId);
+
+    // Update action item
+    statements.push({
+      statement: `
+        UPDATE journey_action_items
+        SET ${updateFields.join(', ')}
+        WHERE id = ? AND journey_id = ?
+      `,
+      values
+    });
+
+    // Update parent journey's updated_at timestamp
+    statements.push({
+      statement: `
+        UPDATE journeys
+        SET updated_at = ?
+        WHERE id = ?
+      `,
+      values: [Date.now(), journeyId]
+    });
+
+    // Execute in transaction
+    await this.db.executeBatch(statements);
+
+    console.log(`[SQLite] Action item ${actionItemId} updated for journey ${journeyId}`);
+  }
+
   // ==================== HELPER METHODS ====================
 
   private async getJourneyEmotions(journeyId: string): Promise<Emotion[]> {

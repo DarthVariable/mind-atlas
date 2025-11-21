@@ -52,6 +52,33 @@
   margin: 0 0 12px;
 }
 
-.intensity-slider ion-range {
-  padding: 8px 0;
+.emotion-intensity-item {
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.emotion-intensity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.emotion-intensity-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+}
+
+.emotion-intensity-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+.emotion-intensity-item ion-range {
+  padding: 4px 0;
 }

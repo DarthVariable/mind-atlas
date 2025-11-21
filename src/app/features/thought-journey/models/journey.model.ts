@@ -11,7 +11,7 @@ export interface JourneyState {
   is_draft: boolean;
   current_step: number;
   path_type: PathType | null;
-  sentiment?: 'positive' | 'negative' | 'neutral';
+  sentiment?: 'positive' | 'negative' | 'neutral' | 'mixed';
   thought_text: string | null;
   thought_origin: ThoughtOrigin | null;
   situation_text: string | null;

@@ -21,18 +21,25 @@
 
         @if (selectedEmotions().length > 0) {
           <div class="intensity-section">
-            <h3>How strong is this emotion?</h3>
-            <div class="intensity-slider">
-              <ion-range
-                [(ngModel)]="intensity"
-                [min]="1"
-                [max]="5"
-                [pin]="true"
-                color="primary">
-                <ion-label slot="start">Low</ion-label>
-                <ion-label slot="end">High</ion-label>
-              </ion-range>
-            </div>
+            <h3>How strong is each emotion?</h3>
+            @for (emotion of selectedEmotions(); track emotion) {
+              <div class="emotion-intensity-item">
+                <div class="emotion-intensity-header">
+                  <span class="emotion-intensity-label">{{ emotion }}</span>
+                  <span class="emotion-intensity-value">{{ getEmotionIntensity(emotion) }}/5</span>
+                </div>
+                <ion-range
+                  [value]="getEmotionIntensity(emotion)"
+                  (ionChange)="updateEmotionIntensity(emotion, $any($event.detail.value))"
+                  [min]="1"
+                  [max]="5"
+                  [pin]="true"
+                  color="primary">
+                  <ion-label slot="start">Low</ion-label>
+                  <ion-label slot="end">High</ion-label>
+                </ion-range>
+              </div>
+            }
           </div>
         }
       </div>

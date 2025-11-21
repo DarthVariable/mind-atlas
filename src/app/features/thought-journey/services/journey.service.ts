@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { IJourneyRepository } from '../../../core/interfaces/journey-repository.interface';
 import { JOURNEY_REPOSITORY } from '../../../core/repositories/repository.tokens';
-import { JourneyState } from '../models/journey.model';
+import { JourneyState, ActionItem } from '../models/journey.model';
 import { JourneyDraft, CompletedJourney, JourneyFilters } from '../models/journey-data.models';
 
 @Injectable({
@@ -48,5 +48,15 @@ export class JourneyService {
 
   async deleteAllJourneys(): Promise<void> {
     return this.repository.deleteAllJourneys();
+  }
+
+  // ==================== ACTION ITEM OPERATIONS ====================
+
+  async updateActionItem(
+    journeyId: string,
+    actionItemId: number,
+    updates: Partial<ActionItem>
+  ): Promise<void> {
+    return this.repository.updateActionItem(journeyId, actionItemId, updates);
   }
 }

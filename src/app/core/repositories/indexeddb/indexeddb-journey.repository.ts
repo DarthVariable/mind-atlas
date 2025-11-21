@@ -257,6 +257,31 @@ export class IndexedDBJourneyRepository implements IJourneyRepository {
     console.log('[IndexedDB] All completed journeys deleted');
   }
 
+  // ==================== ACTION ITEM OPERATIONS ====================
+
+  async updateActionItem(
+    journeyId: string,
+    actionItemId: number,
+    updates: Partial<ActionItem>
+  ): Promise<void> {
+    await db.transaction('rw', [db.journey_action_items, db.journeys], async () => {
+      // Get the current action item
+      const actionItem = await db.journey_action_items.get(actionItemId);
+
+      if (!actionItem || actionItem.journey_id !== journeyId) {
+        throw new Error(`Action item ${actionItemId} not found for journey ${journeyId}`);
+      }
+
+      // Update the action item
+      await db.journey_action_items.update(actionItemId, updates);
+
+      // Update the parent journey's updated_at timestamp
+      await db.journeys.update(journeyId, { updated_at: Date.now() });
+
+      console.log(`[IndexedDB] Action item ${actionItemId} updated for journey ${journeyId}`);
+    });
+  }
+
   // ==================== HELPER METHODS ====================
 
   private async loadRelatedData(journeys: any[]): Promise<CompletedJourney[]> {

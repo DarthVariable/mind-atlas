@@ -7,14 +7,13 @@ import {
   IonFooter,
   IonToolbar,
   IonButton,
-  IonRadioGroup,
-  IonItem,
-  IonRadio,
+  IonRange,
+  IonLabel,
   IonIcon,
   IonTextarea
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { trendingUp, remove, close } from 'ionicons/icons';
+import { close } from 'ionicons/icons';
 import { JourneyStateService } from '../../services/journey-state.service';
 import { JourneyProgressHeaderComponent } from '../journey-progress-header/journey-progress-header.component';
 import { Reevaluation } from '../../models/journey.model';
@@ -30,9 +29,8 @@ import { DismissKeyboardOnEnterDirective } from '../../../../shared/directives';
     IonFooter,
     IonToolbar,
     IonButton,
-    IonRadioGroup,
-    IonItem,
-    IonRadio,
+    IonRange,
+    IonLabel,
     IonIcon,
     IonTextarea,
     JourneyProgressHeaderComponent,
@@ -45,17 +43,32 @@ export class ReevaluateEmotionPageComponent {
   private journeyState = inject(JourneyStateService);
   private router = inject(Router);
 
-  feeling = signal<'better' | 'same' | null>(null);
+  originalBeliefRating = signal<number>(5);
+  currentBeliefRating = signal<number>(5);
   insights = signal('');
 
   hasInsightsText = computed(() => this.insights().trim().length > 0);
+  beliefChangeAmount = computed(() => this.currentBeliefRating() - this.originalBeliefRating());
+  beliefChangeDirection = computed(() => {
+    const change = this.beliefChangeAmount();
+    if (change > 0) return 'improved';
+    if (change < 0) return 'worsened';
+    return 'unchanged';
+  });
+
+  // Expose Math.abs to template
+  Math = Math;
 
   constructor() {
-    addIcons({ trendingUp, remove, close });
+    addIcons({ close });
   }
 
-  onFeelingChange(event: any): void {
-    this.feeling.set(event.detail.value);
+  onOriginalRatingChange(event: any): void {
+    this.originalBeliefRating.set(event.detail.value);
+  }
+
+  onCurrentRatingChange(event: any): void {
+    this.currentBeliefRating.set(event.detail.value);
   }
 
   onInsightsInput(event: any): void {
@@ -73,16 +86,13 @@ export class ReevaluateEmotionPageComponent {
   }
 
   async proceed(): Promise<void> {
-    const feelingValue = this.feeling();
-    if (!feelingValue) return;
-
     const journey = this.journeyState.getCurrentJourney();
     if (!journey) return;
 
     const reevaluation: Reevaluation = {
       journey_id: journey.id,
-      original_belief_rating: 5,
-      reevaluated_belief_rating: feelingValue === 'better' ? 7 : 5,
+      original_belief_rating: this.originalBeliefRating(),
+      reevaluated_belief_rating: this.currentBeliefRating(),
       insights: this.insights().trim() || null
     };
 

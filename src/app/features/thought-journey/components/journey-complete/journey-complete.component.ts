@@ -53,7 +53,7 @@ export class JourneyCompleteComponent implements OnInit {
   private router = inject(Router);
 
   pathType = signal<PathType | null>(null);
-  sentiment = signal<'positive' | 'negative' | 'neutral'>('neutral');
+  sentiment = signal<'positive' | 'negative' | 'neutral' | 'mixed'>('neutral');
   actionItems = signal<Array<{text: string, targetDate?: number}>>([]);
   originalThought = signal<string>('');
   transformedThought = signal<string>('');

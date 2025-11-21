@@ -133,9 +133,12 @@ export class JourneyDetailPage implements OnInit {
 
   async toggleActionCompletion(actionItem: ActionItem) {
     const journey = this.journey();
-    if (!journey || !journey.actionItems) return;
+    if (!journey || !journey.actionItems || !actionItem.id) return;
 
-    // Update the action item locally
+    // Store original state for rollback on error
+    const originalJourney = journey;
+
+    // Update the action item locally (optimistic update)
     const updatedActionItems = journey.actionItems.map(item => {
       if (item.id === actionItem.id) {
         return {
@@ -154,12 +157,25 @@ export class JourneyDetailPage implements OnInit {
       updated_at: Date.now()
     };
 
-    // Update UI immediately for better UX
+    // Update UI immediately for better UX (optimistic update)
     this.journey.set(updatedJourney);
 
-    // TODO: Implement updateActionItem method in repository for proper updates
-    // For now, we just update the UI locally - full persistence will be added later
-    console.log('✅ Action item completion status updated (UI only)');
+    try {
+      // Persist to database
+      await this.journeyService.updateActionItem(
+        journey.id,
+        actionItem.id,
+        {
+          is_completed: !actionItem.is_completed,
+          completed_at: !actionItem.is_completed ? Date.now() : undefined
+        }
+      );
+      console.log('✅ Action item completion status persisted to database');
+    } catch (error) {
+      console.error('❌ Failed to update action item:', error);
+      // Rollback UI to original state on error
+      this.journey.set(originalJourney);
+    }
   }
 
   goBack() {

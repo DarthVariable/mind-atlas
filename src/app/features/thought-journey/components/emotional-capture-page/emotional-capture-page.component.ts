@@ -36,7 +36,7 @@ export class EmotionalCapturePageComponent implements OnInit {
   private router = inject(Router);
 
   selectedEmotions = signal<string[]>([]);
-  intensity = 3;
+  emotionIntensities = signal<Map<string, number>>(new Map());
 
   // Emotion lists by sentiment
   private negativeEmotions = [
@@ -92,6 +92,9 @@ export class EmotionalCapturePageComponent implements OnInit {
       this.emotionsList = this.positiveEmotions;
     } else if (sentiment === 'negative') {
       this.emotionsList = this.negativeEmotions;
+    } else if (sentiment === 'mixed') {
+      // For mixed sentiment, show both positive and negative emotions
+      this.emotionsList = [...this.positiveEmotions, ...this.negativeEmotions];
     } else {
       this.emotionsList = this.neutralEmotions;
     }
@@ -104,10 +107,34 @@ export class EmotionalCapturePageComponent implements OnInit {
   toggleEmotion(emotion: string): void {
     this.selectedEmotions.update(current => {
       if (current.includes(emotion)) {
+        // Remove emotion and its intensity
+        this.emotionIntensities.update(intensities => {
+          const newMap = new Map(intensities);
+          newMap.delete(emotion);
+          return newMap;
+        });
         return current.filter(e => e !== emotion);
       } else {
+        // Add emotion with default intensity of 3
+        this.emotionIntensities.update(intensities => {
+          const newMap = new Map(intensities);
+          newMap.set(emotion, 3);
+          return newMap;
+        });
         return [...current, emotion];
       }
+    });
+  }
+
+  getEmotionIntensity(emotion: string): number {
+    return this.emotionIntensities().get(emotion) || 3;
+  }
+
+  updateEmotionIntensity(emotion: string, intensity: number): void {
+    this.emotionIntensities.update(intensities => {
+      const newMap = new Map(intensities);
+      newMap.set(emotion, intensity);
+      return newMap;
     });
   }
 
@@ -126,7 +153,7 @@ export class EmotionalCapturePageComponent implements OnInit {
     const emotions: Emotion[] = this.selectedEmotions().map(emotionType => ({
       journey_id: journey.id,
       emotion_type: emotionType,
-      intensity: this.intensity,
+      intensity: this.getEmotionIntensity(emotionType),
       captured_at_step: journey.current_step
     }));
 

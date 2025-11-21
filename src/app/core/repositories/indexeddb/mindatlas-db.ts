@@ -11,7 +11,7 @@ export interface JourneyRecord {
   is_draft: number; // 0 = false, 1 = true (for indexing)
   current_step: number;
   path_type: 'REAL' | 'NOT_REAL' | 'EMOTIONAL' | null;
-  sentiment?: 'positive' | 'negative' | 'neutral';
+  sentiment?: 'positive' | 'negative' | 'neutral' | 'mixed';
   thought_text: string | null;
   situation_text: string | null;
   notes?: string | null;

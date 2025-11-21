@@ -1,4 +1,4 @@
-import { JourneyState } from '../../features/thought-journey/models/journey.model';
+import { JourneyState, ActionItem } from '../../features/thought-journey/models/journey.model';
 import { JourneyDraft, CompletedJourney, JourneyFilters } from '../../features/thought-journey/models/journey-data.models';
 
 /**
@@ -63,4 +63,14 @@ export interface IJourneyRepository {
    * Delete all completed journeys
    */
   deleteAllJourneys(): Promise<void>;
+
+  // ==================== ACTION ITEM OPERATIONS ====================
+  /**
+   * Update a specific action item within a journey
+   */
+  updateActionItem(
+    journeyId: string,
+    actionItemId: number,
+    updates: Partial<ActionItem>
+  ): Promise<void>;
 }
