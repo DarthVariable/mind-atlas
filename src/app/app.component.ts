@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
         await this.journeyRepository.initialize();
         await this.analyticsRepository.initialize();
       }
-      await this.checkForDraftInPreferences();
     } catch (error) {
       console.error('❌ Failed to initialize storage:', error);
     }
@@ -43,21 +42,6 @@ export class AppComponent implements OnInit {
       await StatusBar.setBackgroundColor({ color: '#ffffff' });
     } catch (error) {
       console.error('❌ Failed to initialize status bar:', error);
-    }
-  }
-
-  private async checkForDraftInPreferences(): Promise<void> {
-    try {
-      const hasDraft = await this.journeyState.loadDraftFromPreferences();
-
-      if (hasDraft) {
-        const journey = this.journeyState.getCurrentJourney();
-        if (journey) {
-          await this.showDraftPrompt(journey);
-        }
-      }
-    } catch (error) {
-      console.error('❌ Error checking for draft in Preferences:', error);
     }
   }
 

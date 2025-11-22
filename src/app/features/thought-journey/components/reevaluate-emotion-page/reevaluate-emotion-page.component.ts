@@ -51,8 +51,8 @@ export class ReevaluateEmotionPageComponent {
   beliefChangeAmount = computed(() => this.currentBeliefRating() - this.originalBeliefRating());
   beliefChangeDirection = computed(() => {
     const change = this.beliefChangeAmount();
-    if (change > 0) return 'improved';
-    if (change < 0) return 'worsened';
+    if (change < 0) return 'improved';
+    if (change > 0) return 'worsened';
     return 'unchanged';
   });
 
